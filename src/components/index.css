@@ -1,0 +1,25 @@
+.MuiButton-root{
+     background-color: '#8bc34a'!important;
+     color: white !important;
+     border: 1px !important;
+     font-weight: bold !important;
+     font-size: 12px !important;
+     padding: 1px !important;
+      
+}
+
+.card-btns{
+     width: 100%;
+     display: flex;
+     justify-content: space-between ;
+     position: absolute ;
+     bottom: 5px ;
+
+}
+
+.view-detail-btn{
+     background-color: white !important;
+     color: #8bc34a !important;
+     border: 1px solid #8bc34a !important;
+}
+
