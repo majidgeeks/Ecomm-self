@@ -10,14 +10,16 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 700,
+  width: "80%",
   bgcolor: 'background.paper',
   border: '2px solid #8bc34a',
   boxShadow: 24,
-  p: 0,
+  padding: 0,
+  borderRadius: 20
+
 };
 
-export default function BasicModal({handleClose, open}) {
+export default function BasicModal({handleClose, open, detail}) {
   
   
 
@@ -31,7 +33,7 @@ export default function BasicModal({handleClose, open}) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <MediaControlCard/>
+          <MediaControlCard detail={detail}/>
         </Box>
       </Modal>
     </div>

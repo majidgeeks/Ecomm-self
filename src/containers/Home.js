@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 function Home() {
   const [products, setProducts] = useState([]);
   const [open, setOpen] = useState(false);
+  const [detail, setDetail] = useState({});
 
   
   useEffect(() => {
@@ -15,17 +16,20 @@ function Home() {
   }, []);
   
   const viewDetails = (id) => {
-    axios(`https://fakestoreapi.com/products ${id}`)
-    .then((res) => console.log(res.data))
+    axios(`https://fakestoreapi.com/products/${id}`)
+    .then((res) =>{
+       setDetail(res.data)
+       setOpen(true)             
+    })
     .catch((err) => console.log(err));
 
-  }
+  };
 
   console.log("products", products);
   return (
     <div style={{ padding: 20 }}>
       <DrawerAppBar />
-      <BasicModal open={open} handleClose={()=>setOpen(false)}/>
+      <BasicModal detail={detail} open={open} handleClose={()=>setOpen(false)}/>
       <div
         style={{
           display: "flex",
