@@ -14,13 +14,16 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import { useSearchParams } from "react-router-dom";
+
 
 const drawerWidth = 240;
-const navItems = ["Home", "About", "Contact"];
+const navItems = ["ALL","ELECTRONICS", "JEWELERY", "MEN'S CLOTHING","WOMEN'S CLOTHING"];
 
 function DrawerAppBar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  let [searchParams, setSearchParams] = useSearchParams();
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -35,7 +38,7 @@ function DrawerAppBar(props) {
       <List>
         {navItems.map((item) => (
           <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
+            <ListItemButton onClick={()=> setSearchParams({category:item.toLowerCase()})} sx={{ textAlign: "center", }}>
               <ListItemText primary={item} />
             </ListItemButton>
           </ListItem>
@@ -68,9 +71,9 @@ function DrawerAppBar(props) {
           >
             SMIT STORE
           </Typography>
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
+          <Box  sx={{display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
-              <Button key={item} sx={{ color: "#fff" }}>
+              <Button onClick={()=> setSearchParams({category:item.toLowerCase()})} key={item} sx={{ color: "#fff", m:2 }}>
                 {item}
               </Button>
             ))}
