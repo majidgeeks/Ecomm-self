@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, {useContext} from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -7,11 +7,22 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import ReactStars from "react-stars";
 import './index.css';
+import CartContext from "../context/cart";
 
 
 
 export default function MediaCard({ product, viewDetails }) {
-  return (
+  const {cart, setCart} = useContext(CartContext);
+
+const addToCart = () => {
+const cartData = JSON.parse(localStorage.getItem("cart")) || [] ;
+cartData.push(product.id);
+localStorage.setItem("cart", JSON.stringify(cartData));
+setCart(cart.length)
+
+}
+  
+return (
     <Card sx={{ width: 250, marginTop: 4, position:"relative", paddingBottom: 4 }}>
       <div>
         <img
@@ -36,7 +47,7 @@ export default function MediaCard({ product, viewDetails }) {
         />
       </CardContent>
       <CardActions className="card-btns">
-        <Button style={{backgroundColor:'#8bc34a', color:"#fff", }} size="small">ADD TO CART</Button>
+        <Button onClick={addToCart} style={{backgroundColor:'#8bc34a', color:"#fff", }} size="small">ADD TO CART</Button>
         <Button onClick={()=> viewDetails(product.id)}
          className="view-detail-btn" size="small">VIEW DETAILS</Button>
 
