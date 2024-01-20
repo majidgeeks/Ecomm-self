@@ -3,11 +3,11 @@ import AppRouter from "./config/Router";
 import CartContext from "./context/cart";
 
 function App() {
-   const [cart, setCart] = useState(0);
+   const [cart, setCart] = useState([]);
 
    useEffect(() => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [] ;
-    setCart(cart.legnth);
+    setCart(cart);
    })
 
   return(

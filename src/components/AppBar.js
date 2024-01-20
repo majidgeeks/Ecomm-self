@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, {useContext, useState} from "react";
 import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -18,7 +18,7 @@ import { useSearchParams } from "react-router-dom";
 import Badge from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import CartContext from "../context/cart";
-import {useContext} from "react";
+import TemporaryDrawer from "./drawer";
 
 
 const drawerWidth = 240;
@@ -29,10 +29,16 @@ function DrawerAppBar(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   let [searchParams, setSearchParams] = useSearchParams();
   const {cart, setCart} = useContext(CartContext);
-
+  const [open, setOpen] = useState(false)
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
+
+  React.useEffect(()=> {
+
+    const cartData = JSON.parse(localStorage.getItem("cart")) || [] ;
+    setCart(cartData.length)
+  })
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
@@ -83,17 +89,19 @@ function DrawerAppBar(props) {
               </Button>
             ))}
           </Box>
-          <Box>
+          <Box sx={{display: { xs: "none", sm: "block" } }}>
           <IconButton
+            onClick={()=>setOpen(true)}
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
             >
-              <Badge badgeContent={''} color="error">
+              <Badge badgeContent={cart.length} color="error">
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>
           </Box>
+          <TemporaryDrawer open={open} setOpen={setOpen} cardData={cart}/>
         </Toolbar>
       </AppBar>
       <nav>

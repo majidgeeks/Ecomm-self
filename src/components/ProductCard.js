@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -8,17 +8,27 @@ import Typography from "@mui/material/Typography";
 import ReactStars from "react-stars";
 import './index.css';
 import CartContext from "../context/cart";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
+
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 
 export default function MediaCard({ product, viewDetails }) {
   const {cart, setCart} = useContext(CartContext);
+  const [open, setOpen] = useState(false);
+
 
 const addToCart = () => {
 const cartData = JSON.parse(localStorage.getItem("cart")) || [] ;
-cartData.push(product.id);
+cartData.push({...product, qty: 1});
 localStorage.setItem("cart", JSON.stringify(cartData));
-setCart(cart.length)
+setCart(cartData);
+setOpen(true)
 
 }
   
@@ -31,6 +41,13 @@ return (
           alt=""
         />
       </div>
+
+      <Snackbar open={open} autoHideDuration={2000} onClose={()=>setOpen(false)}>
+        <Alert onClose={()=>setOpen(false)} severity="success" sx={{ width: '100%' }}>
+          Product added in cart
+        </Alert>
+      </Snackbar>
+      
       <CardContent>
         <Typography gutterBottom variant="h6" component="div">
           Rs {product.price}
