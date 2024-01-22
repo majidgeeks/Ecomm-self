@@ -38,7 +38,7 @@ function DrawerAppBar(props) {
 
     const cartData = JSON.parse(localStorage.getItem("cart")) || [] ;
     setCart(cartData.length)
-  })
+  },[])
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
@@ -60,6 +60,34 @@ function DrawerAppBar(props) {
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
+
+   const deleteCart = (id) => {
+    const cartData = JSON.parse(localStorage.getItem("cart")) || [] ;
+    const index = cartData.findIndex(v => v.id === id);
+    cartData.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cartData));
+    setCart(cartData);
+    
+   }
+
+   const updateQty = (type, id) => {
+   
+    const cartData = JSON.parse(localStorage.getItem("cart")) || [] ;
+    const index = cartData.findIndex(v => v.id === id);
+    if(type === "+"){
+
+      cartData.splice(index, 1, {...cartData[index], qty: cartData[index].qty + 1})
+    }else{
+
+      cartData.splice(index, 1, {...cartData[index], qty: cartData[index].qty - 1})
+
+    }
+    
+    localStorage.setItem("cart", JSON.stringify(cartData));
+    setCart(cartData);
+
+   }
+
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -101,7 +129,7 @@ function DrawerAppBar(props) {
               </Badge>
             </IconButton>
           </Box>
-          <TemporaryDrawer open={open} setOpen={setOpen} cardData={cart}/>
+          <TemporaryDrawer open={open} setOpen={setOpen} cardData={cart} deleteCart={deleteCart} updateQty={updateQty}/>
         </Toolbar>
       </AppBar>
       <nav>

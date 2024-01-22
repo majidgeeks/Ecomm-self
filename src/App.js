@@ -8,7 +8,7 @@ function App() {
    useEffect(() => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [] ;
     setCart(cart);
-   })
+   },[])
 
   return(
 

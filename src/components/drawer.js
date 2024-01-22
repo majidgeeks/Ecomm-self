@@ -4,7 +4,7 @@ import Drawer from '@mui/material/Drawer';
 import AlignItemsList from './CartList';
 
 
-export default function TemporaryDrawer({open, setOpen, cardData}) {
+export default function TemporaryDrawer({open, setOpen, cardData, deleteCart, updateQty}) {
   
 
 
@@ -24,7 +24,7 @@ export default function TemporaryDrawer({open, setOpen, cardData}) {
       role="presentation"
       
     ></Box>
-           <AlignItemsList cardData={cardData}/> 
+           <AlignItemsList deleteCart={deleteCart} cardData={cardData} updateQty={updateQty}/> 
           </Drawer>
         </React.Fragment>
       

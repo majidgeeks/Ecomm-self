@@ -42,7 +42,7 @@ function Home() {
 
   };
 
-  console.log("products", products);
+  // console.log("products", products);
   return (
     <div style={{ padding: 20 }}>
       <DrawerAppBar />

@@ -6,21 +6,25 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
+import { RiDeleteBin5Line } from "react-icons/ri";
+import { CiSquarePlus,  CiSquareMinus } from "react-icons/ci";
 
-export default function AlignItemsList({cardData}) {
+export default function AlignItemsList({cardData, deleteCart, updateQty}) {
+
+  
   return (
     <List sx={{ width: '100%', maxWidth: 360,
      bgcolor: 'background.paper' }}>
      {cardData.map((v,i) => {
       return (
-      <div key={i}>
+      <div key={i} >
         
         <ListItem alignItems="flex-start">
         <ListItemAvatar>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+          <img style={{width:70, height:70, objectFit:"contain"}} alt='' src={v.image}/>
         </ListItemAvatar>
         <ListItemText
-          primary="Brunch this weekend?"
+          primary={v.title}
           secondary={
             <React.Fragment>
               <Typography
@@ -29,13 +33,22 @@ export default function AlignItemsList({cardData}) {
                 variant="body2"
                 color="text.primary"
               >
-                Ali Connors
+                $ {v.price}
               </Typography>
-              {" — I'll be in your neighborhood doing errands this…"}
+              <Typography style={{display:"flex", justifyContent:"space-around"}}>
+
+              {" Qty :"} <CiSquarePlus onClick={()=> updateQty("+", v.id)} style={{cursor:"pointer"}} size={20}  /> 
+               {v.qty} < CiSquareMinus onClick={()=> v.qty > 1 && updateQty("-", v.id)} style={{cursor:"pointer"}} size={20}/> <RiDeleteBin5Line onClick={()=> deleteCart(v.id)} style={{cursor:"pointer"}} color='red' size={22}  />
+
+              </Typography>
+
+              
             </React.Fragment>
+            
           }
         />
       </ListItem>
+      
       <Divider variant="inset" component="li" />
       </div>
       )

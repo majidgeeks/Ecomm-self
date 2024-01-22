@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -22,15 +22,18 @@ export default function MediaCard({ product, viewDetails }) {
   const {cart, setCart} = useContext(CartContext);
   const [open, setOpen] = useState(false);
 
+  
 
-const addToCart = () => {
-const cartData = JSON.parse(localStorage.getItem("cart")) || [] ;
-cartData.push({...product, qty: 1});
-localStorage.setItem("cart", JSON.stringify(cartData));
-setCart(cartData);
-setOpen(true)
-
-}
+    
+    const addToCart = () => {
+      
+      const cartData = JSON.parse(localStorage.getItem("cart")) || [] ;
+      cartData.push({...product, qty: 1});
+      localStorage.setItem("cart", JSON.stringify(cartData));
+      setCart(cartData);
+      setOpen(true) 
+    }
+  
   
 return (
     <Card sx={{ width: 250, marginTop: 4, position:"relative", paddingBottom: 4 }}>
