@@ -8,6 +8,10 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { CiSquarePlus,  CiSquareMinus } from "react-icons/ci";
+import Button from "@mui/material/Button";
+import Alert from '@mui/material/Alert';
+import { Link } from 'react-router-dom';
+
 
 export default function AlignItemsList({cardData, deleteCart, updateQty}) {
 
@@ -19,7 +23,7 @@ export default function AlignItemsList({cardData, deleteCart, updateQty}) {
       return (
       <div key={i} >
         
-        <ListItem alignItems="flex-start">
+        < ListItem alignItems="flex-start">
         <ListItemAvatar>
           <img style={{width:70, height:70, objectFit:"contain"}} alt='' src={v.image}/>
         </ListItemAvatar>
@@ -33,7 +37,7 @@ export default function AlignItemsList({cardData, deleteCart, updateQty}) {
                 variant="body2"
                 color="text.primary"
               >
-                $ {v.price}
+                $ {v.price * v.qty} 
               </Typography>
               <Typography style={{display:"flex", justifyContent:"space-around"}}>
 
@@ -50,12 +54,18 @@ export default function AlignItemsList({cardData, deleteCart, updateQty}) {
       </ListItem>
       
       <Divider variant="inset" component="li" />
+
       </div>
       )
      })}
+    
+    <Link to={"/checkout"}>
+    {cardData.length ? <Button  style={{backgroundColor:'#8bc34a', color:"#fff", width:'100%', marginTop:5, height:30 }} size="small">CHECKOUT</Button> : <Alert variant="filled" severity="warning">
+  Cart is empty!
+</Alert> }
+    </Link>
 
-      
-      
     </List>
+
   );
 }

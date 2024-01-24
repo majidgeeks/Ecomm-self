@@ -14,7 +14,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import Badge from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import CartContext from "../context/cart";
@@ -28,6 +28,7 @@ function DrawerAppBar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   let [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
   const {cart, setCart} = useContext(CartContext);
   const [open, setOpen] = useState(false)
   const handleDrawerToggle = () => {
@@ -112,7 +113,8 @@ function DrawerAppBar(props) {
           </Typography>
           <Box  sx={{display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
-              <Button onClick={()=> setSearchParams({category:item.toLowerCase()})} key={item} sx={{ color: "#fff", m:2 }}>
+              <Button onClick={()=> { setSearchParams({category:item.toLowerCase()})}}
+               key={item} sx={{ color: "#fff", m:2 }}>
                 {item}
               </Button>
             ))}
